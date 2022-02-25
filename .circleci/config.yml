@@ -1,0 +1,27 @@
+version: 2.1
+
+setup: true
+
+executors:
+  ubuntu-vm:
+    machine:
+      image: ubuntu-2004:202111-01
+
+jobs:
+  build-sample:
+    executor: ubuntu-vm
+    steps:
+      - run:
+          name: Test python .env to json
+          command: |
+            pip3 install python-dotenv
+            python3 env.py
+      - run:
+          name: Display .env.json contents
+          commmand: |
+            cat .env.json
+            
+workflows:
+  always-run:
+    jobs:
+      - build-sample
