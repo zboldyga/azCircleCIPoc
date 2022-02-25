@@ -18,7 +18,7 @@ jobs:
             python3 env.py
       - run:
           name: Display .env.json contents
-          commmand: |
+          command: |
             cat .env.json
             
 workflows:
