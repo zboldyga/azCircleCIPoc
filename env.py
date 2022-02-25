@@ -1,7 +1,31 @@
+#!/usr/bin/python3
+
+import sys, getopt, json
 from dotenv import dotenv_values
-import json
 
-config = dotenv_values(".env.test")
+def parse(argv):
+   env_inputfile = ''
 
-with open('.env.json', 'w', encoding='utf-8') as f:
-    json.dump(config, f, ensure_ascii=False, indent=4)
+   try:
+      opts, args = getopt.getopt(argv,"hi:",["ifile="])
+   except getopt.GetoptError:
+      print('env.py -i <env_inputfile>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print('env.py -i <env_inputfile>')
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         env_inputfile = arg
+   return env_inputfile
+   
+def convert_env_file(env_filename):
+    print('Loading file: ', env_inputfile)
+    config = dotenv_values(env_filename)
+    with open('.env.json', 'w', encoding='utf-8') as f:
+        json.dump(config, f, ensure_ascii=False, indent=4)
+        print('Wrote json to .env.json')
+
+if __name__ == "__main__":
+   env_inputfile = parse(sys.argv[1:])
+   convert_env_file(env_inputfile)
