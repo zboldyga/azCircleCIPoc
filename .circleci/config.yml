@@ -17,7 +17,7 @@ jobs:
           name: Test python .env to json
           command: |
             pip3 install python-dotenv
-            python3 env.py
+            python3 env.py -i .env.test
       - run:
           name: Display .env.json contents
           command: |
