@@ -12,6 +12,7 @@ jobs:
   build-sample:
     executor: ubuntu-vm
     steps:
+      - checkout
       - run:
           name: Test python .env to json
           command: |
